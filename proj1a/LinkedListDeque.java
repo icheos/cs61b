@@ -1,7 +1,5 @@
-import org.w3c.dom.Node;
-
 public class LinkedListDeque<T> {
-    public class Node {
+    private class Node {
         private T item;
         private Node next;
         private Node prev;
@@ -24,6 +22,7 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
+/*
     public LinkedListDeque(LinkedListDeque other) {
         head = new Node(item, null, null);
         head.prev = head;
@@ -35,21 +34,22 @@ public class LinkedListDeque<T> {
         }
         size = 0;
     }
+*/
 
-    public void addFirst(T item) {
+    public void addFirst(T val) {
         size += 1;
         Node p = head;
-        Node n = new Node(item, null, null);
+        Node n = new Node(val, null, null);
         n.next = p.next;
         p.next.prev = n;
         n.prev = p;
         p.next = n;
     }
 
-    public void addLast(T item) {
+    public void addLast(T val) {
         size += 1;
         Node p = head;
-        Node n = new Node(item, null, null);
+        Node n = new Node(val, null, null);
         n.prev = p.prev;
         p.prev.next = n;
         p.prev = n;
@@ -73,22 +73,29 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        size -= 1;
-        Node p = head.next;
-        T val = (T) p.item;
-        p.next.prev = head;
-        head.next = p.next;
-        return val;
+        if (!isEmpty()) {
+            size -= 1;
+            Node p = head.next;
+            T val = (T) p.item;
+            p.next.prev = head;
+            head.next = p.next;
+            return val;
+        } else {
+            return null;
+        }
     }
 
     public T removeLast() {
-        size -= 1;
-        Node p = head.prev;
-        T val = (T) p.item;
-        p.prev.next = head;
-        head.prev = p.prev;
-        return val;
+        if (!isEmpty()) {
+            size -= 1;
+            Node p = head.prev;
+            T val = (T) p.item;
+            p.prev.next = head;
+            head.prev = p.prev;
+            return val;
 
+        }
+        return null;
     }
 
     public T get(int index) {
@@ -110,5 +117,4 @@ public class LinkedListDeque<T> {
         }
         return (T) head.item;
     }
-
 }

@@ -8,7 +8,7 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        for (int i = size - 1; i >= 0; i++) {
+        for (int i = size - 1; i >= 0; i--) {
             arr[i + 1] = arr[i];
         }
         arr[0] = item;
@@ -35,22 +35,29 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        T val = arr[0];
-        for (int i = 0; i < size - 1; i++) {
-            arr[i] = arr[i + 1];
+        if (!isEmpty()) {
+            T val = arr[0];
+            for (int i = 0; i < size - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            size -= 1;
+            return val;
         }
-        size -= 1;
-        return val;
+        return null;
     }
 
     public T removeLast() {
-        T val = arr[size - 1];
-        size -= 1;
-        return val;
+        if (!isEmpty()) {
+            T val = arr[size - 1];
+            size -= 1;
+            return val;
+        }
+        return null;
     }
 
     public T get(int index) {
         T val = arr[index];
         return val;
     }
+
 }
