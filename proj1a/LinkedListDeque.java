@@ -5,12 +5,14 @@ public class LinkedListDeque<T> {
         private T item;
         private Node next;
         private Node prev;
-        public  Node(T item, Node prev, Node next) {
+
+        public Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
     }
+
     private T item;
     private Node head;
     private int size;
@@ -90,7 +92,7 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        Node p = head;
+        Node p = head.next;
         while (index > 0) {
             p = p.next;
             index -= 1;
@@ -98,12 +100,13 @@ public class LinkedListDeque<T> {
         return (T) p.item;
     }
 
-    public T getRecursice(int index) {
+    public T getRecursive(int index) {
         if (index == 0) {
-            return (T) head.item;
+            head = head.next;
+            return head.item;
         } else {
             head = head.next;
-            getRecursice(index - 1);
+            getRecursive(index - 1);
         }
         return (T) head.item;
     }
