@@ -108,13 +108,19 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
+        Node p = head;
         if (index == 0) {
             head = head.next;
-            return head.item;
+            Node tmp = p;
+            p = head;
+            head = tmp;
+            return p.item;
         } else {
             head = head.next;
-            getRecursive(index - 1);
+            T val = getRecursive(index - 1);
+            head = p;
+            return val;
         }
-        return (T) head.item;
     }
+
 }
