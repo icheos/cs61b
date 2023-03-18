@@ -49,7 +49,7 @@ public class ArrayDeque<T> {
                 arr[i] = arr[i + 1];
             }
             size -= 1;
-            if (maxSize / size >= 2) {
+            if (size * 2 <= maxSize) {
                 resize(0.5f);
             }
             return val;
@@ -61,7 +61,7 @@ public class ArrayDeque<T> {
         if (!isEmpty()) {
             T val = arr[size - 1];
             size -= 1;
-            if (maxSize / size >= 2) {
+            if (size * 2 <= maxSize) {
                 resize(0.5f);
             }
             return val;
