@@ -1,30 +1,55 @@
 public class ArrayDeque<T> {
     private T[] arr;
     private int size;
+    private int nextFirst;
+    private int nextLast;
     private int maxSize;
 
     public ArrayDeque() {
-        maxSize = 10;
+        maxSize = 8;
         arr = (T[]) new Object[maxSize];
         size = 0;
+        nextFirst = 4;
+        nextLast = 5;
+    }
+
+    private int back(int index) {
+        if (index == 0) {
+            index = maxSize - 1;
+        } else {
+            index -= 1;
+        }
+        return index;
+    }
+
+    private int forward(int index, int len) {
+        while (len != 0) {
+            if (index == maxSize - 1) {
+                index = 0;
+            } else {
+                index += 1;
+            }
+            len -= 1;
+        }
+        return index;
     }
 
     public void addFirst(T item) {
         if (size == maxSize) {
-            resize(2);
+            resizeUp();
         }
-        for (int i = size - 1; i >= 0; i--) {
-            arr[i + 1] = arr[i];
-        }
-        arr[0] = item;
+        arr[nextFirst] = item;
+        nextFirst = back(nextFirst);
         size += 1;
     }
 
+
     public void addLast(T item) {
         if (size == maxSize) {
-            resize(2);
+            resizeUp();
         }
-        arr[size] = item;
+        arr[nextLast] = item;
+        nextLast = forward(nextLast, 1);
         size += 1;
     }
 
@@ -37,54 +62,71 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
+        int s = size;
         for (int i = 0; i < size; i++) {
-            System.out.println(arr[i]);
+            System.out.println(get(i));
         }
     }
 
     public T removeFirst() {
-        if (!isEmpty()) {
-            T val = arr[0];
-            for (int i = 0; i < size - 1; i++) {
-                arr[i] = arr[i + 1];
-            }
-            size -= 1;
-            if (size * 2 <= maxSize) {
-                resize(0.5f);
-            }
-            return val;
+        if (size * 2 == maxSize && size >= 10) {
+            resizeDown();
         }
-        return null;
+        if (!isEmpty()) {
+            size -= 1;
+            nextFirst = forward(nextFirst, 1);
+            T val = arr[nextFirst];
+            return val;
+        } else {
+            return null;
+        }
     }
 
     public T removeLast() {
+        if (size * 2 == maxSize && size >= 10) {
+            resizeDown();
+        }
         if (!isEmpty()) {
-            T val = arr[size - 1];
             size -= 1;
-            if (size * 2 <= maxSize) {
-                resize(0.5f);
-            }
+            nextLast = back(nextLast);
+            T val = arr[nextLast - 1];
             return val;
         }
         return null;
     }
 
     public T get(int index) {
-        return arr[index];
+        if (index < size) {
+            int next = forward(nextFirst, index + 1);
+            return arr[next];
+        }
+
+        return null;
     }
 
-    private void resize(float factor) {
-        if (factor > 1) {
-            maxSize = (int) (size * factor);
-            T[] a = (T[]) new Object[maxSize];
-            System.arraycopy(arr, 0, a, 0, size);
-            arr = a;
-        } else {
-            maxSize = (int) (maxSize * factor);
-            T[] a = (T[]) new Object[maxSize];
-            System.arraycopy(arr, 0, a, 0, size);
-            arr = a;
+    private void resizeUp() {
+        int newSize = (int) (size * 2);
+        T[] a = (T[]) new Object[newSize];
+        for (int i = 0; i < size; i++) {
+            a[i] = get(i);
         }
+        maxSize = newSize;
+        nextFirst = maxSize - 1;
+        nextLast = size;
+        arr = a;
+
+    }
+
+    private void resizeDown() {
+        int newSize = (int) (maxSize / 2);
+        T[] a = (T[]) new Object[newSize];
+        for (int i = 0; i < size; i++) {
+            a[i] = get(i);
+        }
+        maxSize = newSize;
+        nextFirst = maxSize - 1;
+        nextLast = size;
+        arr = a;
     }
 
 }
