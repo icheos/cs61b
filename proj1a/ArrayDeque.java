@@ -2,12 +2,12 @@ public class ArrayDeque<T> {
     private T[] arr;
     private int size;
     private int maxSize;
-    private int Factor;
+    private int factor;
 
     public ArrayDeque() {
         maxSize = 100;
         arr = (T[]) new Object[maxSize];
-        Factor = 2;
+        factor = 2;
         size = 0;
     }
 
@@ -24,9 +24,10 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (size == maxSize) {
-            arr[size] = item;
-            size += 1;
+            resize();
         }
+        arr[size] = item;
+        size += 1;
     }
 
     public boolean isEmpty() {
@@ -65,12 +66,12 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-        T val = arr[index];
-        return val;
+        return arr[index];
     }
 
-    public void resize() {
-        T[] a = (T[]) new Object[size * Factor];
+    private void resize() {
+        maxSize = size * factor;
+        T[] a = (T[]) new Object[maxSize];
         System.arraycopy(arr, 0, a, 0, size);
         arr = a;
     }
