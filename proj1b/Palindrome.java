@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Assert.*;
+
 public class Palindrome {
 
     public Deque<Character> wordToDeque(String word) {
@@ -10,6 +11,7 @@ public class Palindrome {
         }
         return dq;
     }
+
     public boolean isPalindrome(String word) {
 //        int mid = dq.size() / 2;
 //        for (int i = 0; i < mid; i++) {
@@ -18,14 +20,15 @@ public class Palindrome {
 //            }
 //        }
 //       return true;
-        if (word.length() <= 1) {
+        if (word == null || word.length() <= 1) {
             return true;
         }
         if (!isSame(word.charAt(0), word.charAt(word.length() - 1))) {
             return false;
         }
-        return isPalindrome(word.substring(1,word.length() - 1));
+        return isPalindrome(word.substring(1, word.length() - 1));
     }
+
     public boolean isPalindrome(String word, CharacterComparator cc) {
         if (word.length() <= 1) {
             return true;
@@ -35,22 +38,12 @@ public class Palindrome {
         }
         return isPalindrome(word.substring(1, word.length() - 1), cc);
     }
+
     private boolean isSame(Character a, Character b) {
-        if (a.equals(b))  {
+        if (a.equals(b)) {
             return true;
         }
         return false;
     }
-
-    @Test
-    public void testPalindrome() {
-        Assert.assertFalse(isPalindrome("cat"));
-        Assert.assertTrue((isPalindrome("cac")));
-        Assert.assertTrue((isPalindrome("cddc")));
-        CharacterComparator cc = new OffByOne();
-        Assert.assertTrue(isPalindrome("flake", cc));
-
-    }
-
 
 }

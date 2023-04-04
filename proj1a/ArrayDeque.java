@@ -35,7 +35,7 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (size == maxSize) {
+        if (size == maxSize - 1) {
             resizeUp();
         }
         arr[nextFirst] = item;
@@ -45,7 +45,7 @@ public class ArrayDeque<T> {
 
 
     public void addLast(T item) {
-        if (size == maxSize) {
+        if (size == maxSize - 1) {
             resizeUp();
         }
         arr[nextLast] = item;
@@ -69,7 +69,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (size * 2 == maxSize && size >= 10) {
+        if (size * 2 == maxSize && size >= 16) {
             resizeDown();
         }
         if (!isEmpty()) {
@@ -77,13 +77,12 @@ public class ArrayDeque<T> {
             nextFirst = forward(nextFirst, 1);
             T val = arr[nextFirst];
             return val;
-        } else {
-            return null;
         }
+        return null;
     }
 
     public T removeLast() {
-        if (size * 2 == maxSize && size >= 10) {
+        if (size * 2 == maxSize && size >= 16) {
             resizeDown();
         }
         if (!isEmpty()) {
@@ -129,4 +128,17 @@ public class ArrayDeque<T> {
         arr = a;
     }
 
+    public static void main(String[] args) {
+        ArrayDeque a = new ArrayDeque();
+        a.addFirst(0);
+        a.removeLast();
+        a.addFirst(2);
+        a.addLast(4);
+        a.addLast(5);
+        a.removeLast();
+        a.removeFirst();
+        a.removeFirst();
+        a.addFirst(10);
+        a.printDeque();
+    }
 }
