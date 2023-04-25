@@ -22,7 +22,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
     private int forward(int fd) {
         if (fd < this.capacity - 1) {
-            return first += 1;
+            return fd += 1;
         }
         return 0;
     }
