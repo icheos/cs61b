@@ -1,15 +1,13 @@
-// TODO: Make sure to make this class a part of the synthesizer package
+// DONE: Make sure to make this class a part of the synthesizer package
 package synthesizer;
 
 import java.util.Random;
 
 //Make sure this class is public
 public class GuitarString {
-    /**
-     * Constants. Do not change. In case you're curious, the keyword final means
+    /** Constants. Do not change. In case you're curious, the keyword final means
      * the values cannot be changed at runtime. We'll discuss this and other topics
-     * in lecture on Friday.
-     */
+     * in lecture on Friday. */
     private static final int SR = 44100;      // Sampling Rate
     private static final double DECAY = .996; // energy decay factor
 
@@ -18,12 +16,12 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        // TODO: Create a buffer with capacity = SR / frequency. You'll need to
+        // DONE: Create a buffer with capacity = SR / frequency. You'll need to
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
-        int capacity = (int) Math.round(SR / frequency);
-        buffer = new ArrayRingBuffer<>(capacity);
+        int capacity =  (int) Math.round(SR / frequency);
+        buffer = new ArrayRingBuffer<>( capacity);
         while (!buffer.isFull()) {
             buffer.enqueue(0.0);
         }
@@ -32,7 +30,7 @@ public class GuitarString {
 
     /* Pluck the guitar string by replacing the buffer with white noise. */
     public void pluck() {
-        // TODO: Dequeue everything in the buffer, and replace it with random numbers
+        // DONE: Dequeue everything in the buffer, and replace it with random numbers
         //       between -0.5 and 0.5. You can get such a number by using:
         //       double r = Math.random() - 0.5;
         //
@@ -51,13 +49,13 @@ public class GuitarString {
      * the Karplus-Strong algorithm.
      */
     public void tic() {
-        // TODO: Dequeue the front sample and enqueue a new sample that is
+        // DONE: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
         double item = buffer.dequeue();
         double item2 = buffer.peek();
-        double guitar = DECAY * (item2 + item) * .5;
-        double drum = DECAY * (item2 + item + 1.3) / 5;  //set capacity * 10
+        double guitar  = DECAY * (item2 + item) * .5;
+        double drum  = DECAY * (item2 + item + 1.3) / 5;  //set capacity * 10
 
         buffer.enqueue(guitar);
     }
