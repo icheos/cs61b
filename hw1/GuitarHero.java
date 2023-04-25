@@ -1,8 +1,8 @@
 import synthesizer.GuitarString;
 
 public class GuitarHero {
-  private static double[] notes = new double[37];
-  private static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static double[] notes = new double[37];
+    private static String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static void main(String[] args) {
         for (int i = 0; i < keyboard.length(); i++) {
@@ -19,7 +19,7 @@ public class GuitarHero {
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
                 if (keyboard.indexOf(key) != -1) {
-                      gs[keyboard.indexOf(key)].pluck();
+                    gs[keyboard.indexOf(key)].pluck();
                 }
             }
 

@@ -1,5 +1,6 @@
 // TODO: Make sure to make this class a part of the synthesizer package
- package synthesizer;
+package synthesizer;
+
 import java.util.Iterator;
 
 //TODO: Make sure to make this class and all of its methods public
@@ -26,11 +27,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         first = last = fillCount = 0;
 
     }
+
     private int forward(int first) {
-      if (first < this.capacity - 1) {
-          return first += 1;
-      }
-      return 0;
+        if (first < this.capacity - 1) {
+            return first += 1;
+        }
+        return 0;
     }
 
     /**
@@ -85,11 +87,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public Iterator<T> iterator() {
         return new getIterrator();
     }
+
     private class getIterrator implements Iterator<T> {
 
         @Override
         public boolean hasNext() {
-            if(!isEmpty()){
+            if (!isEmpty()) {
                 return true;
             }
             return false;
@@ -97,8 +100,8 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
         @Override
         public T next() {
-           T item = dequeue();
-           return item;
+            T item = dequeue();
+            return item;
         }
     }
 }
