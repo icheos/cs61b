@@ -20,8 +20,8 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
     }
 
-    private int forward(int first) {
-        if (first < this.capacity - 1) {
+    private int forward(int fd) {
+        if (fd < this.capacity - 1) {
             return first += 1;
         }
         return 0;
@@ -70,17 +70,18 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
 
-
     @Override
     public Iterator<T> iterator() {
-        return new getIterrator();
+        return new GetIterrator();
     }
 
-    private class getIterrator implements Iterator<T> {
+    private class GetIterrator implements Iterator<T> {
         private int pos;
-        private getIterrator() {
-           pos = 0;
+
+        private GetIterrator() {
+            pos = 0;
         }
+
         @Override
         public boolean hasNext() {
             return pos < fillCount;

@@ -1,13 +1,14 @@
 // DONE: Make sure to make this class a part of the synthesizer package
 package synthesizer;
 
-import java.util.Random;
 
 //Make sure this class is public
 public class GuitarString {
-    /** Constants. Do not change. In case you're curious, the keyword final means
+    /**
+     * Constants. Do not change. In case you're curious, the keyword final means
      * the values cannot be changed at runtime. We'll discuss this and other topics
-     * in lecture on Friday. */
+     * in lecture on Friday.
+     */
     private static final int SR = 44100;      // Sampling Rate
     private static final double DECAY = .996; // energy decay factor
 
@@ -20,8 +21,8 @@ public class GuitarString {
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
-        int capacity =  (int) Math.round(SR / frequency);
-        buffer = new ArrayRingBuffer<>( capacity);
+        int capacity = (int) Math.round(SR / frequency);
+        buffer = new ArrayRingBuffer<>(capacity);
         while (!buffer.isFull()) {
             buffer.enqueue(0.0);
         }
@@ -54,15 +55,15 @@ public class GuitarString {
         //       Do not call StdAudio.play().
         double item = buffer.dequeue();
         double item2 = buffer.peek();
-        double guitar  = DECAY * (item2 + item) * .5;
-        double drum  = DECAY * (item2 + item + 1.3) / 5;  //set capacity * 10
+        double guitar = DECAY * (item2 + item) * .5;
+        double drum = DECAY * (item2 + item + 1.3) / 5;  //set capacity * 10
 
         buffer.enqueue(guitar);
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        // TODO: Return the correct thing.
+        // DONE: Return the correct thing.
         return buffer.peek();
     }
 }
