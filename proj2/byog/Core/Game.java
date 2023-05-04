@@ -31,8 +31,22 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
+        String seed;
+        if (input.substring(input.length() - 2, input.length() - 1).equals(":q")) {
 
-        TETile[][] finalWorldFrame = null;
+            seed = input.substring(1, input.length() - 2);
+        }
+        else {
+            seed = input.substring(1, input.length());
+        }
+        int SEED = 0;
+        for (int i = 0; i < seed.length()- 1; i++) {
+            SEED += seed.charAt(i) - '0';
+            SEED *= 10;
+        }
+        SEED += seed.charAt(seed.length() - 1) - '0';
+        World w = new World(SEED, Game.WIDTH, Game.HEIGHT);
+        TETile[][] finalWorldFrame = w.generateWorld();
         return finalWorldFrame;
     }
 }
