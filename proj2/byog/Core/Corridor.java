@@ -1,9 +1,5 @@
 package byog.Core;
 
-import com.sun.source.doctree.SeeTree;
-import jh61b.junit.In;
-
-import java.nio.channels.Pipe;
 import java.util.*;
 
 public class Corridor {
@@ -40,5 +36,4 @@ public class Corridor {
         }
         return s;
     }
-
 }

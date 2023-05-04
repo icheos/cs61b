@@ -4,20 +4,18 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-import java.nio.channels.Pipe;
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public class World {
     public static final int LIMIT = 500;
     public static final int MINSIZE = 3;
     public static final int MAXSIZE = 7;
-    public static Random RANDOM;
-    public TETile[][] world;
-    public int seed;
-    public Set<Point> rms;
+    private static Random RANDOM;
+    private TETile[][] world;
+    private int seed;
+    private Set<Point> rms;
 
-    public World(int seed, int w, int h) {
+    public World(long seed, int w, int h) {
         RANDOM = new Random(seed);
         rms = new HashSet<>();
         world = new TETile[w][h];
@@ -56,7 +54,8 @@ public class World {
             Point roompos = room.position();
             int roomw = room.getWidth();
             int roomh = room.getHeight();
-            if (roompos.x + roomw - 1 == p.x || roompos.x == p.x || roompos.y + roomh - 1 == p.y || roompos.y == p.y) {
+            if (roompos.x + roomw - 1 == p.x || roompos.x == p.x ||
+                    roompos.y + roomh - 1 == p.y || roompos.y == p.y) {
                 world[p.x][p.y] = Tileset.WALL;
             } else {
                 world[p.x][p.y] = Tileset.FLOOR;
