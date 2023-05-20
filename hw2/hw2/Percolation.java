@@ -107,13 +107,9 @@ public class Percolation {
 
     // use for unit testing (not required)
     public static void main(String[] args) {
-        Percolation p = new Percolation(3);
+        Percolation p = new Percolation(2);
         p.open(0, 0);
-        p.open(1, 0);
-        p.open(2, 0);
-        p.open(2, 2);
         System.out.println(p.percolates());
-        System.out.println(p.isFull(2, 2));
     }
 
 }
