@@ -40,17 +40,6 @@ public class Percolation {
             return;
         }
         area[row][col] = true;
-        if (row == (area.length - 1)) {
-            bottomColum[bottomSize] = col;
-            bottomSize++;
-        }
-        if (!isPercolate) {
-            for (int i = 0; i < bottomSize; i++) {
-                if (uf.connected(topSide, (area.length - 1) * area.length + bottomColum[i])) {
-                    isPercolate = true;
-                }
-            }
-        }
         if (isOpen(row + 1, col)) {
             uf.union(XYTo1D(row, col), XYTo1D(row + 1, col));
         }
@@ -62,6 +51,17 @@ public class Percolation {
         }
         if (isOpen(row, col + 1)) {
             uf.union(XYTo1D(row, col), XYTo1D(row, col + 1));
+        }
+        if (row == (area.length - 1)) {
+            bottomColum[bottomSize] = col;
+            bottomSize++;
+        }
+        if (!isPercolate) {
+            for (int i = 0; i < bottomSize; i++) {
+                if (uf.connected(topSide, XYTo1D(N - 1,bottomColum[i]))) {
+                    isPercolate = true;
+                }
+            }
         }
         opened += 1;
     }
