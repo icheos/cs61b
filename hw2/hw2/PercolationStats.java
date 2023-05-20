@@ -53,9 +53,4 @@ public class PercolationStats {
         return mean() + (1.96 * stddev() / Math.pow(percolateTimes.length, 0.5));
     }
 
-    public static void main(String[] args) {
-        PercolationFactory pf = new PercolationFactory();
-        PercolationStats ps = new PercolationStats(20, 20, pf);
-    }
-
 }

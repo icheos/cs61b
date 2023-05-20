@@ -9,6 +9,7 @@ public class Percolation {
     private int topSide;
     private int[] bottomColum;
     private int bottomSize;
+    private boolean isPercolate;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
@@ -16,6 +17,7 @@ public class Percolation {
             throw new IllegalArgumentException("N must bigger than 0");
         }
         opened = 0;
+        isPercolate = false;
         area = new boolean[N][N];
         topSide = N * N;
         bottomColum = new int[N];
@@ -41,6 +43,13 @@ public class Percolation {
         if (row == (area.length - 1)) {
             bottomColum[bottomSize] = col;
             bottomSize++;
+        }
+        if (!isPercolate) {
+            for (int i = 0; i < bottomSize; i++) {
+                if (uf.connected(topSide, (area.length - 1) * area.length + bottomColum[i])) {
+                    isPercolate = true;
+                }
+            }
         }
         if (isOpen(row + 1, col)) {
             uf.union(XYTo1D(row, col), XYTo1D(row + 1, col));
@@ -93,12 +102,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        for (int i = 0; i < bottomSize; i++) {
-            if (uf.connected(topSide, (area.length - 1)* area.length + bottomColum[i])) {
-               return true;
-            }
-        }
-        return false;
+        return isPercolate;
     }
 
     // use for unit testing (not required)
