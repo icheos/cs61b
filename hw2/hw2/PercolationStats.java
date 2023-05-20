@@ -16,7 +16,6 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
             percolateTimes[i] = calPercolate(N, p);
-            System.out.println(percolateTimes[i]);
         }
     }
 
@@ -45,12 +44,12 @@ public class PercolationStats {
 
     // low endpoint of 95% confidence interval
     public double confidenceHigh() {
-        return mean() - (1.96 * stddev() / Math.pow(percolateTimes.length, 0.5));
+        return mean() - (1.96 * stddev()) / Math.pow(percolateTimes.length, 0.5);
     }
 
     // high endpoint of 95% confidence interval
     public double confidenceLow() {
-        return mean() + (1.96 * stddev() / Math.pow(percolateTimes.length, 0.5));
+        return mean() + (1.96 * stddev()) / Math.pow(percolateTimes.length, 0.5);
     }
 
 }
