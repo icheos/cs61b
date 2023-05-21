@@ -32,10 +32,6 @@ public class Percolation {
             uf.union(bottomSide, xyTo1D(N - 1, i));
         }
     }
-    public int getOpened() {
-        return opened;
-    }
-
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
         int N = area.length;
@@ -98,6 +94,9 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
+        if (area.length == 1 && !isOpen(0, 0)) {
+            return false;
+        }
         return uf.connected(topSide, bottomSide);
     }
 
