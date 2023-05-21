@@ -6,9 +6,11 @@ import jdk.jshell.Snippet;
 
 public class PercolationStats {
     private double[] percolateTimes;
+    private int T;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        this.T = T;
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("Too small");
         }
@@ -24,12 +26,11 @@ public class PercolationStats {
         while (!p.percolates()) {
             int randomX = StdRandom.uniform(N);
             int randomY = StdRandom.uniform(N);
-            if (!p.isOpen(randomX, randomY)) {
-                p.open(randomX, randomY);
-                runtime++;
-            }
+            p.open(randomX, randomY);
         }
-        return runtime;
+        return (double) p.getOpened() / (N * N);
+
+
     }
 
     // sample mean of percolation threshold
@@ -51,5 +52,4 @@ public class PercolationStats {
     public double confidenceLow() {
         return mean() + (1.96 * stddev()) / Math.pow(percolateTimes.length, 0.5);
     }
-
 }
