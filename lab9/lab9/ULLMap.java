@@ -130,7 +130,17 @@ public class ULLMap<K, V>  implements Map61B<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        V val = get(key);
+        Entry prev = list;
+        Entry current = list;
+        while (current != null) {
+            if (prev.key == key) {
+                prev.next = current.next;
+            }
+            prev = list;
+            current = list.next;
+        }
+        return val;
     }
 
     @Override
