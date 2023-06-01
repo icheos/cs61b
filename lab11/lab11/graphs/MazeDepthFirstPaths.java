@@ -31,6 +31,9 @@ public class MazeDepthFirstPaths extends MazeExplorer {
         if (v == t) {
             targetFound = true;
         }
+        if (targetFound) {
+            return;
+        }
 
         if (targetFound) {
             return;
