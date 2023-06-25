@@ -80,11 +80,4 @@ public class RadixSort {
         return;
     }
 
-    public static void main(String[] args) {
-        String[] asciis = {"Vla","Dba", "Vlb", "Dav", "Lee", "Lis", "Edi"};
-        asciis = sort(asciis);
-        for (String s : asciis) {
-            System.out.println(s);
-        }
-    }
 }
